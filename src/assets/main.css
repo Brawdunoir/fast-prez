@@ -1,0 +1,63 @@
+@import './base.css';
+
+h1,
+h2 {
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: var(--margin-bottom);
+  padding: var(--title-padding);
+  width: 100%;
+}
+
+input {
+  padding: var(--box-padding);
+  border: var(--border-thickness) solid var(--border-color);
+  margin-bottom: var(--margin-bottom);
+}
+
+h1 {
+  font-size: 2rem;
+  margin-top: var(--margin-top);
+}
+
+h2 {
+  font-size: 1.3rem;
+  margin-bottom: var(--margin-bottom);
+}
+
+
+/* Boxes */
+h1,
+h2,
+textarea,
+input,
+button,
+.box {
+  border: var(--border-thickness) solid var(--border-color);
+  padding: var(--box-padding);
+  margin-bottom: var(--margin-bottom);
+  background-color: white;
+  box-shadow: 4px 4px #000;
+}
+
+input,
+textarea {
+  &:focus {
+    outline: none;
+  }
+}
+
+button {
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+  background-color: var(--accent-color);
+  cursor: pointer;
+  transition: box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+button:hover {
+  box-shadow: 0px 0px 0px #000000;
+  transform: translate(6px, 6px);
+}

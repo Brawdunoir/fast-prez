@@ -1,0 +1,52 @@
+:root {
+  --primary-color: #fdfd96;
+  --secondary-color: #87CEEB;
+  --accent-color: #A388EE;
+  --border-color: #000;
+  --border-thickness: 3px;
+  --box-padding: 15px;
+  --title-padding: 10px 20px;
+  --margin-bottom: 25px;
+  --margin-top: 40px;
+}
+
+/* CSS Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#app {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  background-color: var(--primary-color);
+  font-family: "Lexend Mega", monospace, Arial, sans-serif;
+}
+
+.main-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+@media (max-width: 768px) {
+  .main-container {
+    width: 95%;
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-container {
+    width: 100%;
+    padding: 0.25rem;
+  }
+}
