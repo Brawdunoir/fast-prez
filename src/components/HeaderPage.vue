@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <span>Quick Media Craft</span>
-    <a href="https://github.com/brawdunoir"><img src="../assets/github-logo.svg" alt=""></a>
+    <a href="https://github.com/Brawdunoir/quick-media-craft"><img src="../assets/github-logo.svg" alt=""></a>
   </header>
 </template>
 
