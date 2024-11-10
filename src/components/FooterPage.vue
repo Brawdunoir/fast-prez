@@ -1,5 +1,5 @@
 <script setup>
-const version = import.meta.env.VITE_APP_VERSION ?? 'dev';
+const version = "0.2.0";
 </script>
 
 <template>
