@@ -1,16 +1,3 @@
-<script setup>
-import { ref } from 'vue'
-const { parsedInfo, movieDetails } = defineProps({
-  parsedInfo: {
-    type: Object
-  },
-  movieDetails: {
-    type: Object,
-    required: true
-  }
-})
-</script>
-
 <template>
   <div class="container box" contenteditable="true">
     <div class="content">
@@ -23,7 +10,8 @@ const { parsedInfo, movieDetails } = defineProps({
 .container {
   width: 65%;
   padding: var(--box-padding);
-  overflow-y: hidden;    /* Hides the vertical scrollbar */
+  /* Hides the vertical scrollbar */
+  overflow-y: hidden;
 }
 
 .content {
