@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, watch } from 'vue'
 import { parseMediaInfo } from './lib/mediaInfoParser'
 import { scrollToSection } from './lib/scrollToSection'
 import { startOver } from './lib/startOver'
@@ -12,61 +12,81 @@ import PresentationHelpers from './components/PresentationHelpers.vue'
 import ManualMovieName from './components/ManualMovieName.vue'
 import FooterPage from './components/FooterPage.vue'
 import { parse } from '@brawdunoir/parse-torrent-filename/index.js'
+import Movie from './models/Movie';
+
 
 const mediaInfo = ref('') // Input from textarea (nfo)
-const manualMovieTitle = ref('') // Manual input from user
-const movieSelectedDetails = ref(null) // Movie details grabbed from TMDB whenever a movie has been selected
+const isMovieSelected = ref(false) // Were movie details grabbed from TMDB ?
 
-// Computed properties from mediaInfo to have a js object to work with
-const parsedInfo = computed(() => {
-  if (!mediaInfo.value) return null
-  return parseMediaInfo(mediaInfo.value)
-})
+const movie = ref(new Movie())
 
-// Computed property to get the movie title from the mediaInfo/manualMovieTitle
-const movieTitle = computed(() => {
-  if (manualMovieTitle.value) return manualMovieTitle.value
-  if (!parsedInfo.value) return ''
-  // Extract only the movie name before the year or quality indicators
-  const movieTitle = parse(parsedInfo.value.general.complete_name).title
-  return movieTitle
+watch(mediaInfo, async (newMediaInfo) => {
+  const parsedMediaInfo = parseMediaInfo(newMediaInfo)
+  if (!parsedMediaInfo.general.complete_name) return
+  const parsedTitle = parse(parsedMediaInfo.general.complete_name)
+  if (!parsedTitle.title) return
+  const media = movie.value
+  media.title = parsedTitle.title
+  media.duration = parsedMediaInfo.general.duration
+  media.format = parsedMediaInfo.general.format
+  media.videoBitrate = parsedMediaInfo.video[0].bit_rate
+  media.audioBitrate = parsedMediaInfo.audio[0].bit_rate
+  media.size = parsedMediaInfo.general.file_size
+  media.source = parsedTitle.source
+  media.resolution = parsedTitle.resolution
+  media.videoCodec = parsedTitle.codec
+  media.audioCodec = parsedTitle.codec // Not sure if it's the right one
+  media.setAudioLanguages(parsedMediaInfo.audio)
+  media.setSubtitles(parsedMediaInfo.text)
 })
 
 function setManualMovieTitle(title) {
-  manualMovieTitle.value = title.value
+  movie.value.title = title.value
 }
 
-async function fetchMovieDetails(movie) {
-  movieSelectedDetails.value = await getMovieDetails(movie.id)
+async function fetchMovieDetails(movieSelected) {
+  const movieDetails = await getMovieDetails(movieSelected.id)
+  const media = movie.value
+  media.posterPath = movieDetails.poster_path
+  media.tagline = movieDetails.tagline
+  media.overview = movieDetails.overview
+  media.title = movieDetails.title
+  media.setActors(movieDetails.credits.cast)
+  media.setDirectors(movieDetails.credits.crew)
+  media.releaseDate = new Date(movieDetails.release_date)
+  media.genres = movieDetails.genres.map(genre => genre.name)
+  media.originCountries = movieDetails.origin_country
+
+  isMovieSelected.value = true
   await new Promise(resolve => setTimeout(resolve, 100)) // Give time for DOM update
   scrollToSection('movie-presentation')
 }
 </script>
 
 <template>
-  <HeaderPage/>
+  <HeaderPage />
   <div class="main-container">
-    <h1 id="first-section">{{ $t('app.mediaInfoTitle')}}</h1>
+    <h1 id="first-section">{{ $t('app.mediaInfoTitle') }}</h1>
     <textarea v-model="mediaInfo" :placeholder="$t('app.mediaInfoTextAreaPlaceholder')"></textarea>
-    <ManualMovieName @movie-title="setManualMovieTitle"/>
+    <ManualMovieName @movie-title="setManualMovieTitle" />
 
-    <div v-if="movieTitle">
-      <h1>{{ $t('app.tmdbResultsTitle', { title: movieTitle }) }}</h1>
-      <TmdbList @movie="fetchMovieDetails" :movie-title="movieTitle"/>
+    <div v-if="movie.title">
+      <h1>{{ $t('app.tmdbResultsTitle', { title: movie.title }) }}</h1>
+      <TmdbList @movie="fetchMovieDetails" :movie-title="movie.title" />
     </div>
 
-    <div id="movie-presentation" v-if="movieSelectedDetails">
+    <div id="movie-presentation" v-if="isMovieSelected">
       <h1>{{ $t('app.presentationTitle') }}</h1>
       <div class="presentation-container">
-        <Presentation :parsed-info="parsedInfo" :movie-details="movieSelectedDetails">
-          <TemplateBasic :parsed-info="parsedInfo" :movie-details="movieSelectedDetails"></TemplateBasic>
+        <Presentation>
+          <TemplateBasic :movie />
         </Presentation>
-        <PresentationHelpers/>
+        <PresentationHelpers />
       </div>
-    <button @click="startOver" style="width: 100%;">{{ $t('app.reload') }}</button>
+      <button @click="startOver" style="width: 100%;">{{ $t('app.reload') }}</button>
     </div>
   </div>
-  <FooterPage/>
+  <FooterPage />
 </template>
 
 <style scoped>
