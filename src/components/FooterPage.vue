@@ -5,7 +5,7 @@ const version = "0.2.0";
 <template>
   <footer>
     <span>Version {{ version }}</span>
-    <span>Made with 💚 by Yann.</span>
+    <span>Made with ❤️ by Yann.</span>
   </footer>
 </template>
 
