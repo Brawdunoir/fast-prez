@@ -9,6 +9,7 @@ import TemplateBasic from './components/templates/TemplateBasic.vue'
 import Presentation from './components/Presentation.vue'
 import HeaderPage from './components/HeaderPage.vue'
 import PresentationHelpers from './components/PresentationHelpers.vue'
+import HeaderWithSubtitle from './components/HeaderWithSubtitle.vue'
 import ManualMovieName from './components/ManualMovieName.vue'
 import FooterPage from './components/FooterPage.vue'
 import { parse } from '@brawdunoir/parse-torrent-filename/index.js'
@@ -40,10 +41,7 @@ watch(mediaInfo, async (newMediaInfo) => {
   media.setSubtitles(parsedMediaInfo.text)
 })
 
-function setManualMovieTitle(title) {
-  movie.value.title = title.value
-}
-
+// Fetch movie details from TMDB
 async function fetchMovieDetails(movieSelected) {
   const movieDetails = await getMovieDetails(movieSelected.id)
   const media = movie.value
@@ -66,17 +64,21 @@ async function fetchMovieDetails(movieSelected) {
 <template>
   <HeaderPage />
   <div class="main-container">
-    <h1 id="first-section">{{ $t('app.mediaInfoTitle') }}</h1>
+    <HeaderWithSubtitle id="first-section" :title="$t('app.mediaInfoTitle')" :subtitle="$t('app.mediaInfoSubtitle')" />
     <textarea v-model="mediaInfo" :placeholder="$t('app.mediaInfoTextAreaPlaceholder')"></textarea>
-    <ManualMovieName @movie-title="setManualMovieTitle" />
+    <ManualMovieName v-model="movie.title" />
 
     <div v-if="movie.title">
-      <h1>{{ $t('app.tmdbResultsTitle', { title: movie.title }) }}</h1>
+      <HeaderWithSubtitle :title="$t('app.tmdbResultsTitle')" :subtitle="$t('app.tmdbResultsSubtitle')" />
       <TmdbList @movie="fetchMovieDetails" :movie-title="movie.title" />
     </div>
 
+    <div class="no-results" v-if="!movie.title && mediaInfo">
+      <p>{{ $t('app.noResults') }}</p>
+    </div>
+
     <div id="movie-presentation" v-if="isMovieSelected">
-      <h1>{{ $t('app.presentationTitle') }}</h1>
+      <HeaderWithSubtitle :title="$t('app.presentationTitle')" :subtitle="$t('app.presentationSubtitle')" />
       <div class="presentation-container">
         <Presentation>
           <TemplateBasic :movie />
@@ -100,5 +102,13 @@ textarea {
   justify-content: space-between;
   align-items: flex-start;
   gap: var(--margin-bottom);
+}
+
+.no-results {
+  display: flex;
+  font-size: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
 }
 </style>

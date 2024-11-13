@@ -11,10 +11,14 @@ const i18n = createI18n({
   messages: {
     en: {
       app: {
-        mediaInfoTitle: 'Movie Info',
+        mediaInfoTitle: 'Step 1: Paste NFO',
+        mediaInfoSubtitle: "The movie title will be extracted from the NFO",
         mediaInfoTextAreaPlaceholder: 'Paste your NFO here',
-        tmdbResultsTitle: 'Search results for "{title}" movie',
-        presentationTitle: 'Movie presentation',
+        noResults: 'No results found, try typing the movie name manually',
+        tmdbResultsTitle: 'Step 2: Select your movie',
+        tmdbResultsSubtitle: 'You can scroll using the mouse',
+        presentationTitle: 'Step 3: Complete the presentation if needed',
+        presentationSubtitle: 'And the show is on!',
         reload: 'Start over',
       },
       wip: 'Work in progress 🚧',
@@ -25,11 +29,15 @@ const i18n = createI18n({
     },
     fr: {
       app: {
-        mediaInfoTitle: 'Information du film',
+        mediaInfoTitle: 'Étape 1 : Coller le NFO',
+        mediaInfoSubtitle: "Le titre du film sera extrait du NFO, sinon vous pouvez le saisir manuellement",
         mediaInfoTextAreaPlaceholder: 'Coller le NFO ici',
-        tmdbResultsTitle: 'Résultats de recherche pour le film "{title}"',
-        presentationTitle: 'Présentation du film',
-        reload: 'Générer une nouvelle présentation',
+        noResults: 'Aucun résultat trouvé, essayez de saisir le nom du film manuellement',
+        tmdbResultsTitle: 'Étape 2 : Sélectionner votre film',
+        tmdbResultsSubtitle: 'Vous pouvez scroller avec la souris',
+        presentationTitle: 'Étape 3 : Compléter la présentation si besoin',
+        presentationSubtitle: 'Et le tour est joué !',
+        reload: 'Recommencer',
       },
       wip: 'En chantier 🚧',
       manualMovieName: {
