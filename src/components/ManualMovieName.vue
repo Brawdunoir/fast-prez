@@ -35,7 +35,7 @@ const updateMovieTitle = (e) => {
 }
 
 .faded {
-  opacity: 0.6;
+  opacity: 0.3;
   transition: opacity 0.3s ease;
 
   &:hover {
