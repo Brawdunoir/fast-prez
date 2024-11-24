@@ -37,15 +37,9 @@ watchEffect(async () => {
 <template>
   <div class="container">
     <div v-for="movie in movieResults" :key="movie.id">
-        <MediaResult
-          @click="clickOnMovie(movie)"
-          :class="[movieSelected === movie ? 'selected' : '']"
-          :title="movie.title"
-          :releaseDate="movie.release_date"
-          :posterPath="movie.poster_path"
-          :voteAverage="movie.vote_average"
-          :overview="movie.overview"
-        />
+      <MediaResult @click="clickOnMovie(movie)" :class="[movieSelected?.id === movie.id ? 'selected' : '']"
+        :title="movie.title" :releaseDate="movie.release_date" :posterPath="movie.poster_path"
+        :voteAverage="movie.vote_average" :overview="movie.overview" />
     </div>
   </div>
 </template>
