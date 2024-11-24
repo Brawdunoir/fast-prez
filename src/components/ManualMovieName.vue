@@ -5,16 +5,22 @@ import { ref } from 'vue';
 const movieTitle = defineModel()
 
 const updated = ref('');
-const debouncedFn = useDebounceFn((e) => {
+const debouncedUpdateMovieTitle = useDebounceFn((e) => {
   movieTitle.value = e.target.value;
   updated.value = e.target.value;
 }, 500, { maxWait: 3000 })
+
+const updateMovieTitle = (e) => {
+  movieTitle.value = e.target.value;
+  updated.value = e.target.value;
+}
+
 </script>
 
 <template>
   <div :class="[updated ? 'container' : 'container faded']">
     <label>{{ $t('manualMovieName.description') }}</label>
-    <input :value="updated" @input="debouncedFn" type="text"
+    <input :value="updated" @input="debouncedUpdateMovieTitle" @keyup.enter="updateMovieTitle" type="text"
       :placeholder="movieTitle ?? $t('manualMovieName.inputPlaceholder')">
   </div>
 </template>
