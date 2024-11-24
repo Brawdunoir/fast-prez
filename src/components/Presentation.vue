@@ -17,7 +17,6 @@
 .content {
   font-size: .9rem;
   font-family: monospace;
-  color: var(--accent-color);
   line-height: 1.4rem;
 }
 </style>
