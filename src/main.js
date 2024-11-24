@@ -11,6 +11,7 @@ const i18n = createI18n({
   messages: {
     en: {
       app: {
+        catchPhrase: 'Create torrent presentations in a breeze!',
         mediaInfoTitle: 'Step 1: Paste NFO',
         mediaInfoSubtitle: "The movie title will be extracted from the NFO",
         mediaInfoTextAreaPlaceholder: 'Paste your NFO here',
@@ -29,6 +30,7 @@ const i18n = createI18n({
     },
     fr: {
       app: {
+        catchPhrase: 'Créez des présentations de torrent en un rien de temps !',
         mediaInfoTitle: 'Étape 1 : Coller le NFO',
         mediaInfoSubtitle: "Le titre du film sera extrait du NFO, sinon vous pouvez le saisir manuellement",
         mediaInfoTextAreaPlaceholder: 'Coller le NFO ici',
