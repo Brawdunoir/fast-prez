@@ -1,10 +1,3 @@
-github readme for sometings that create bbcode with nfo files automaticly  in vue.js with tmdb
-
-GPT-4o mini
-
-Creating a GitHub README for a Vue.js project that automatically generates BBCode from NFO files using TMDB (The Movie Database) can help users understand the purpose of your project, how to set it up, and how to use it. Below is a sample README template you can use and customize for your project.
-
-markdown
 
 # NFO to BBCode Converter
 
@@ -14,9 +7,7 @@ A Vue.js application that automatically generates BBCode from NFO files using da
 
 - Automatically reads NFO files and extracts metadata.
 - Fetches additional information from TMDB to enrich the BBCode output.
-- Generates BBCode snippets for movies and TV shows.
-- User-friendly interface built with Vue.js.
-- Supports multiple NFO file formats.
+- Generates BBCode snippets for movies 
 
 ## Website
 
