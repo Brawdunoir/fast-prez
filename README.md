@@ -1,5 +1,5 @@
 
-# NFO to BBCode Converter
+# Fastprez
 
 A Vue.js application that automatically generates BBCode from NFO files using data from TMDB (The Movie Database). This tool simplifies the process of creating BBCode for media sharing by extracting relevant information from NFO files and formatting it for easy use in forums and other platforms.
 
