@@ -1,14 +1,31 @@
-# vue-project
+github readme for sometings that create bbcode with nfo files automaticly  in vue.js with tmdb
 
-This template should help get you started developing with Vue 3 in Vite.
+GPT-4o mini
 
-## Recommended IDE Setup
+Creating a GitHub README for a Vue.js project that automatically generates BBCode from NFO files using TMDB (The Movie Database) can help users understand the purpose of your project, how to set it up, and how to use it. Below is a sample README template you can use and customize for your project.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+markdown
 
-## Customize configuration
+# NFO to BBCode Converter
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+A Vue.js application that automatically generates BBCode from NFO files using data from TMDB (The Movie Database). This tool simplifies the process of creating BBCode for media sharing by extracting relevant information from NFO files and formatting it for easy use in forums and other platforms.
+
+## Features
+
+- Automatically reads NFO files and extracts metadata.
+- Fetches additional information from TMDB to enrich the BBCode output.
+- Generates BBCode snippets for movies and TV shows.
+- User-friendly interface built with Vue.js.
+- Supports multiple NFO file formats.
+
+## Website
+
+[Website](https://quick-media-craft.onrender.com/)
+
+## Installation
+
+To get started with the project, follow these steps:
+
 
 ## Project Setup
 
@@ -21,6 +38,21 @@ npm install
 ```sh
 npm run dev
 ```
+1. **Create an Account on TMDB**:
+   - Go to [TMDB (The Movie Database)](https://www.themoviedb.org/) and sign up for an account if you don't already have one.
+
+2. **Generate Your API Key**:
+   - After logging in, navigate to the API section of the website.
+   - Follow the instructions to request and generate your API key.
+
+3. **Create a .env File**:
+   - In the root directory of your project, create a file named `.env`.
+
+4. **Add Your API Key**:
+   - Open the `.env` file and add your API key in the following format:
+
+   ```plaintext
+   VITE_TMDB_API_KEY=your_api_key_here
 
 ### Compile and Minify for Production
 
