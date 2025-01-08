@@ -23,22 +23,22 @@ const movie = ref(new Movie())
 
 watch(mediaInfo, async (newMediaInfo) => {
   const parsedMediaInfo = parseMediaInfo(newMediaInfo)
-  if (!parsedMediaInfo.general.complete_name) return
-  const parsedTitle = parse(parsedMediaInfo.general.complete_name)
+  if (!parsedMediaInfo.general.complete_name && !parsedMediaInfo.general.nom_complet) return;
+  const parsedTitle = parse(parsedMediaInfo.general.complete_name || parsedMediaInfo.general.nom_complet);
   if (!parsedTitle.title) return
   const media = movie.value
   media.title = parsedTitle.title
   media.duration = parsedMediaInfo.general.duration
   media.format = parsedMediaInfo.general.format
-  media.videoBitrate = parsedMediaInfo.video[0].bit_rate
-  media.audioBitrate = parsedMediaInfo.audio[0].bit_rate
+  media.videoBitrate = parsedMediaInfo.video[0].bit_rate || parsedMediaInfo.video[0].débit
+  media.audioBitrate = parsedMediaInfo.audio[0].bit_rate || parsedMediaInfo.audio[0].débit
   media.size = parsedMediaInfo.general.file_size
   media.source = parsedTitle.source
   media.resolution = parsedTitle.resolution
   media.videoCodec = parsedTitle.codec
   media.audioCodec = parsedTitle.codec // Not sure if it's the right one
   media.setAudioLanguages(parsedMediaInfo.audio)
-  media.setSubtitles(parsedMediaInfo.text)
+  media.setSubtitles(parsedMediaInfo.text)          
 })
 
 // Fetch movie details from TMDB

@@ -14,10 +14,10 @@ export function parseMediaInfo(input) {
     const trimmedLine = line.trim()
 
     // Handle section headers
-    if (trimmedLine === 'General') {
+    if (trimmedLine === 'General' || trimmedLine === 'Général') {
       currentSection = 'general'
       continue
-    } else if (trimmedLine.startsWith('Video')) {
+    } else if (trimmedLine.startsWith('Video') || trimmedLine.startsWith('Vidéo')) {
       currentSection = 'video'
       sections.video.push({})
       continue
@@ -25,7 +25,7 @@ export function parseMediaInfo(input) {
       currentSection = 'audio'
       sections.audio.push({})
       continue
-    } else if (trimmedLine.startsWith('Text')) {
+    } else if (trimmedLine.startsWith('Text') || trimmedLine.startsWith('Texte')) {
       currentSection = 'text'
       sections.text.push({})
       continue
