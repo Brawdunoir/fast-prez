@@ -132,15 +132,4 @@ export default class Movie {
   setSubtitles(mediaInfoText: any[]) {
     this.subtitles = Array.from(new Set(mediaInfoText.map((textInfo) => textInfo.language)));
   }
-
-  /**
-   *
-   * @returns {string}
-   */
-  getFormattedReleaseDate(): string {
-    if (this.releaseDate) {
-      return this.releaseDate.toLocaleDateString(navigator.language);
-    }
-    return 'Release date not available';
-  }
 }
