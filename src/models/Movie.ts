@@ -111,7 +111,7 @@ export default class Movie {
    * @param mediaInfoAudio Audio section from MediaInfo
    */
   setAudioLanguages(mediaInfoAudio: any[]) {
-    this.audioLanguages = Array.from(new Set(mediaInfoAudio.map((audioInfo) => audioInfo.language)));
+    this.audioLanguages = Array.from(new Set(mediaInfoAudio.map((audioInfo) => audioInfo.language || audioInfo.langue)));
   }
 
   /**
@@ -130,6 +130,6 @@ export default class Movie {
    * @param mediaInfoText Text section from MediaInfo
    */
   setSubtitles(mediaInfoText: any[]) {
-    this.subtitles = Array.from(new Set(mediaInfoText.map((textInfo) => textInfo.language)));
+    this.subtitles = Array.from(new Set(mediaInfoText.map((textInfo) => textInfo.language || textInfo.langue)));
   }
 }
