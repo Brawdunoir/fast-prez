@@ -25,15 +25,15 @@ This project uses [EditorConfig](https://editorconfig.org). Most IDE come bundle
 FastPrez needs a TMDB account to work.
 
 1. **Create your accont**:
-   - Go to [TMDB (The Movie Database)](https://www.themoviedb.org/) and sign up for an account if you don't already have one.
+  - Go to [TMDB (The Movie Database)](https://www.themoviedb.org/) and sign up for an account if you don't already have one.
 
 2. **Generate your API key**:
-   - After logging in, navigate to the API section of the website.
-   - Follow the instructions to request and generate your API key.
+  - After logging in, navigate to the API section of the website.
+  - Follow the instructions to request and generate your API key.
 
 3. **Create a .env file**:
-   - Copy the `.env.example` to a `.env` file.
-   - Copy your TMDB API key inside.
+  - Copy the `.env.example` to a `.env` file.
+  - Copy your TMDB API key inside.
 
 ### Project Setup
 

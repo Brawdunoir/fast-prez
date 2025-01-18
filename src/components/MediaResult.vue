@@ -20,14 +20,15 @@ const { title, releaseDate, posterPath, overview } = defineProps({
 <template>
   <div class="card box">
     <div class="card-thumbnail">
-      <img v-if="posterPath" :src="`https://image.tmdb.org/t/p/w500${posterPath}`" loading="lazy" alt="Movie Poster" class="card-thumbnail">
+      <img v-if="posterPath" :src="`https://image.tmdb.org/t/p/w500${posterPath}`" loading="lazy" alt="Movie Poster"
+        class="card-thumbnail">
     </div>
     <div class="card-content">
       <p><strong>{{ title }} {{ releaseDate ? `(${new Date(releaseDate).getFullYear()})` : "" }}</strong></p>
       <br>
       <p :title="overview">{{ overview }}</p>
     </div>
-   </div>
+  </div>
 </template>
 
 <style scoped>
@@ -40,6 +41,7 @@ const { title, releaseDate, posterPath, overview } = defineProps({
   padding: 0;
   overflow: hidden;
   transition: box-shadow 0.2s ease, transform 0.2s ease;
+
   &:hover {
     box-shadow: 0px 0px 0px #000000;
     transform: translate(6px, 6px);
@@ -48,7 +50,8 @@ const { title, releaseDate, posterPath, overview } = defineProps({
 
 .card-thumbnail {
   height: auto;
-  width: 197px; /* Matches tmdb poster dimensions */
+  /* Matches tmdb poster dimensions */
+  width: 197px;
 }
 
 .card-content {
