@@ -1,7 +1,11 @@
-<script setup>
+<script setup lang="ts">
 defineProps(['movie'])
-const regionNamesFr = new Intl.DisplayNames(['fr'], { type: 'region' });
+const templateLang = 'fr';
+const regionNames = new Intl.DisplayNames([templateLang], { type: 'region', style: 'long' });
 
+function translateRegion(region: string): string {
+    return regionNames.of(region);
+}
 </script>
 
 <template>
@@ -14,7 +18,7 @@ const regionNamesFr = new Intl.DisplayNames(['fr'], { type: 'region' });
     <p>[b]Acteurs :[/b] {{ movie.getActors() }}</p>
     <p>[b]Réalisateurs :[/b] {{ movie.getDirectors() }} </p>
     <p>[b]Genre(s) :[/b] {{ movie.getGenres() }}</p>
-    <p>[b]Nationalité :[/b] {{ movie.getFirstOriginCountry() }}</p>
+    <p>[b]Nationalité :[/b] {{ translateRegion(movie.getFirstOriginCountry()) }}</p>
     <p>[b]Durée :[/b] {{ movie.duration }}</p>
     <p>[b]Date de sortie :[/b] {{ movie.getFormattedReleaseDate() }}</p>
     <br>

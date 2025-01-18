@@ -80,10 +80,10 @@ export default class Movie {
   }
 
   /**
-   * @returns {string}
+   * @returns {string} The first origin country not translated
    */
   getFirstOriginCountry(): string {
-    return new Intl.DisplayNames([navigator.language], { type: 'region' }).of(this.originCountries[0]);
+    return this.originCountries[0];
   }
 
   /**
