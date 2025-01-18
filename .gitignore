@@ -32,3 +32,5 @@ coverage
 .env
 *nfo
 public/MediaInfoModule.wasm
+
+megalinter-reports/
