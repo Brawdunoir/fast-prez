@@ -7,18 +7,21 @@ A Vue.js application that automatically generates BBCode from NFO files using da
 
 - Automatically reads NFO files and extracts metadata.
 - Fetches additional information from TMDB to enrich the BBCode output.
-- Generates BBCode snippets for movies 
+- Generates BBCode snippets for movies
 
 ## Website
 
 [Website](https://quick-media-craft.onrender.com/)
 
-## Installation
+## Development
 
 To get started with the project, follow these steps:
 
+### EditorConfig
 
-## Project Setup
+This project uses [EditorConfig](https://editorconfig.org). Most IDE come bundled with native support for EditorConfig. If yours does not, see to download a plugin (needed on VS Code).
+
+### Project Setup
 
 ```sh
 npm install
