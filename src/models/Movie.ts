@@ -1,3 +1,5 @@
+import ISO6391 from 'iso-639-1';
+import { capitalize } from '@/lib/stringUtils';
 
 /**
  * @typedef {Object} MovieOptions
@@ -19,7 +21,7 @@
  * @property {string} audioCodec
  * @property {string} audioBitrate
  * @property {string[]} audioLanguages
- * @property {string[]} subtitles
+ * @property {string[]} subtitlesLanguages
  * @property {string} size
  */
 export default class Movie {
@@ -41,7 +43,7 @@ export default class Movie {
   audioCodec?: string;
   audioBitrate?: string;
   audioLanguages?: string[];
-  subtitles?: string[];
+  subtitlesLanguages?: string[];
   size?: string;
 
   /**
@@ -80,10 +82,14 @@ export default class Movie {
   }
 
   /**
+   * @param locale Locale of the user
    * @returns {string} The first origin country not translated
    */
-  getFirstOriginCountry(): string {
-    return this.originCountries[0];
+  getFirstOriginCountry(locale: string = navigator.language): string {
+    if (this.originCountries.length == 0) {
+      return 'No origin country';
+    }
+    return new Intl.DisplayNames([locale], { type: 'region', style: 'long' }).of(this.originCountries[0]);
   }
 
   /**
@@ -97,17 +103,22 @@ export default class Movie {
   }
 
   /**
-   * @returns {string}
+   * @param locale Locale of the user
+   * @returns {string} Audio languages separated by comma
    */
-  getAudioLanguages(): string {
+  getAudioLanguages(locale: string = navigator.language): string {
     if (!this.audioLanguages) {
       return 'No audio';
     }
-    return this.audioLanguages.join(', ');
+    const displayNames = new Intl.DisplayNames([locale], { type: 'language' });
+    return this.audioLanguages.map(lang => {
+      const localeCode = ISO6391.getCode(lang);
+      const translatedLang = localeCode ? displayNames.of(localeCode) : lang;
+      return capitalize(translatedLang);
+    }).join(', ');
   }
 
   /**
-   *
    * @param mediaInfoAudio Audio section from MediaInfo
    */
   setAudioLanguages(mediaInfoAudio: any[]) {
@@ -115,21 +126,36 @@ export default class Movie {
   }
 
   /**
-   *
-   * @returns {string}
+   * @param locale Locale of the user
+   * @returns {string} Subtitles languages separated by comma
    */
-  getSubtitles(): string {
-    if (!this.subtitles) {
+  getSubtitlesLanguages(locale: string = navigator.language): string {
+    if (!this.subtitlesLanguages) {
       return 'No subtitles';
     }
-    return this.subtitles.join(', ');
+    const displayNames = new Intl.DisplayNames([locale], { type: 'language' });
+    return this.subtitlesLanguages.map(lang => {
+      const localeCode = ISO6391.getCode(lang);
+      const translatedLang = localeCode ? displayNames.of(localeCode) : lang;
+      return capitalize(translatedLang);
+    }).join(', ');
   }
 
   /**
-   *
    * @param mediaInfoText Text section from MediaInfo
    */
-  setSubtitles(mediaInfoText: any[]) {
-    this.subtitles = Array.from(new Set(mediaInfoText.map((textInfo) => textInfo.language)));
+  setSubtitlesLanguages(mediaInfoText: any[]) {
+    this.subtitlesLanguages = Array.from(new Set(mediaInfoText.map((textInfo) => textInfo.language)));
+  }
+
+  /**
+   * @param locale Locale of the user
+   * @returns {string}
+   */
+  getFormattedReleaseDate(locale: string = navigator.language): string {
+    if (!this.releaseDate) {
+      return 'Release date not available';
+    }
+    return this.releaseDate.toLocaleDateString(locale);
   }
 }

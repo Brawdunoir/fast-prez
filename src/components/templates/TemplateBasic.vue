@@ -1,11 +1,7 @@
 <script setup lang="ts">
 defineProps(['movie'])
+// Until we decide to translate every keywords and implement a manual switch, this template is French only.
 const templateLang = 'fr';
-const regionNames = new Intl.DisplayNames([templateLang], { type: 'region', style: 'long' });
-
-function translateRegion(region: string): string {
-  return regionNames.of(region);
-}
 </script>
 
 <template>
@@ -18,9 +14,9 @@ function translateRegion(region: string): string {
   <p>[b]Acteurs :[/b] {{ movie.getActors() }}</p>
   <p>[b]Réalisateurs :[/b] {{ movie.getDirectors() }} </p>
   <p>[b]Genre(s) :[/b] {{ movie.getGenres() }}</p>
-  <p>[b]Nationalité :[/b] {{ translateRegion(movie.getFirstOriginCountry()) }}</p>
+  <p>[b]Nationalité :[/b] {{ movie.getFirstOriginCountry(templateLang) }}</p>
   <p>[b]Durée :[/b] {{ movie.duration }}</p>
-  <p>[b]Date de sortie :[/b] {{ movie.releaseDate.toLocaleDateString(templateLang) }}</p>
+  <p>[b]Date de sortie :[/b] {{ movie.getFormattedReleaseDate(templateLang) }}</p>
   <br>
   [img]https://i.imgur.com/GhShVZp.png[/img]
   <br>
@@ -34,8 +30,9 @@ function translateRegion(region: string): string {
   <p>[b]Bitrate Vidéo :[/b] {{ movie.videoBitrate ?? 'MANQUANT ex 2 637 kb/s' }}</p>
   <p>[b]Codec Audio :[/b] {{ movie.audioCodec ?? 'MANQUANT ex "x264"' }}</p>
   <p>[b]Bitrate Audio :[/b] {{ movie.audioBitrate ?? 'MANQUANT ex 241 kb/s' }}</p>
-  <p>[b]Langue(s) Audio :[/b] {{ movie.getAudioLanguages() }}</p>
-  <p>[b]Sous-titre(s) :[/b] {{ movie.getSubtitles() }}</p>
+  <p>[b]Langue(s) Audio :[/b] {{ movie.getAudioLanguages(templateLang)
+    }}</p>
+  <p>[b]Sous-titre(s) :[/b] {{ movie.getSubtitlesLanguages(templateLang) }}</p>
   <br>
   [img]https://i.imgur.com/VCskFfz.png[/img]
   <br>
