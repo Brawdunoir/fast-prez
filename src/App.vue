@@ -38,7 +38,7 @@ watch(mediaInfo, async (newMediaInfo) => {
   media.videoCodec = parsedTitle.codec
   media.audioCodec = parsedTitle.codec // Not sure if it's the right one
   media.setAudioLanguages(parsedMediaInfo.audio)
-  media.setSubtitles(parsedMediaInfo.text)
+  media.setSubtitlesLanguages(parsedMediaInfo.text)
 })
 
 // Fetch movie details from TMDB
