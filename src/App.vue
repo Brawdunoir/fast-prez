@@ -74,16 +74,16 @@ function skipTMDB() {
     <textarea v-model="mediaInfo" :placeholder="$t('app.mediaInfoTextAreaPlaceholder')"></textarea>
     <ManualMovieName v-model="movie.title" />
 
-    <div v-if="movie.title">
+    <div v-if="mediaInfo || movie.title">
       <HeaderWithSubtitle :title="$t('app.tmdbResultsTitle')" :subtitle="$t('app.tmdbResultsSubtitle')" />
-      <TmdbList @movie="fetchMovieDetails" :movie-title="movie.title" />
+      <div class="no-results" v-if="!movie.title">
+        <p>{{ $t('app.noResults') }}</p>
+      </div>
+      <div v-else>
+        <TmdbList @movie="fetchMovieDetails" :movie-title="movie.title" />
+      </div>
+      <button v-if="!isMovieSelected" style="width: 100%;" @click="skipTMDB()">{{ $t('app.tmdbSkipButton') }}</button>
     </div>
-
-    <div class="no-results" v-if="!movie.title && mediaInfo">
-      <p>{{ $t('app.noResults') }}</p>
-    </div>
-    <button v-if="mediaInfo && !isMovieSelected" style="width: 100%;" @click="skipTMDB()">{{ $t('app.tmdbSkipButton')
-      }}</button>
 
     <div id="movie-presentation" v-if="isMovieSelected">
       <HeaderWithSubtitle :title="$t('app.presentationTitle')" :subtitle="$t('app.presentationSubtitle')" />
