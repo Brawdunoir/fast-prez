@@ -32,7 +32,7 @@ export default class Movie {
   directors?: string[];
   genres?: string[];
   originCountries?: string[];
-  duration?: number;
+  duration?: string;
   releaseDate?: Date;
   overview?: string;
   source?: string;
@@ -50,6 +50,9 @@ export default class Movie {
    * @returns {string}
    */
   getActors(): string {
+    if (this.actors == undefined) {
+      return 'No actor found';
+    }
     return this.actors.join(', ');
   }
 
@@ -64,6 +67,9 @@ export default class Movie {
    * @returns {string}
    */
   getDirectors(): string {
+    if (this.directors == undefined) {
+      return 'No director found';
+    }
     return this.directors.join(', ');
   }
 
@@ -78,6 +84,9 @@ export default class Movie {
    * @returns {string}
    */
   getGenres(): string {
+    if (this.genres == undefined) {
+      return 'No genre found';
+    }
     return this.genres.join(', ');
   }
 
@@ -86,8 +95,8 @@ export default class Movie {
    * @returns {string} The first origin country not translated
    */
   getFirstOriginCountry(locale: string = navigator.language): string {
-    if (this.originCountries.length == 0) {
-      return 'No origin country';
+    if (this.originCountries == undefined) {
+      return 'No origin country found';
     }
     return new Intl.DisplayNames([locale], { type: 'region', style: 'long' }).of(this.originCountries[0]);
   }
@@ -96,10 +105,10 @@ export default class Movie {
    * @returns {string} Source + Resolution = Quality
    */
   getQuality(): string {
-    if (this.source && this.resolution) {
-      return `${this.source} ${this.resolution}`;
+    if (!this.source || !this.resolution) {
+      return 'No quality found';
     }
-    return undefined;
+    return `${this.source} ${this.resolution}`;
   }
 
   /**
@@ -108,7 +117,7 @@ export default class Movie {
    */
   getAudioLanguages(locale: string = navigator.language): string {
     if (!this.audioLanguages) {
-      return 'No audio';
+      return 'No audio languages found';
     }
     const displayNames = new Intl.DisplayNames([locale], { type: 'language' });
     return this.audioLanguages.map(lang => {
@@ -131,7 +140,7 @@ export default class Movie {
    */
   getSubtitlesLanguages(locale: string = navigator.language): string {
     if (!this.subtitlesLanguages) {
-      return 'No subtitles';
+      return 'No subtitles languages found';
     }
     const displayNames = new Intl.DisplayNames([locale], { type: 'language' });
     return this.subtitlesLanguages.map(lang => {
@@ -154,8 +163,58 @@ export default class Movie {
    */
   getFormattedReleaseDate(locale: string = navigator.language): string {
     if (!this.releaseDate) {
-      return 'Release date not available';
+      return 'No release date found';
     }
     return this.releaseDate.toLocaleDateString(locale);
+  }
+
+  /**
+  * @returns {string}
+  */
+  getTagline(): string {
+    if (!this.tagline) {
+      return 'No tagline found';
+    }
+    return this.tagline;
+  }
+
+  /**
+   * @returns {string}
+   */
+  getOverview(): string {
+    if (!this.overview) {
+      return 'No overview found';
+    }
+    return this.overview;
+  }
+
+  /**
+   * @returns {string}
+   */
+  getDuration(): string {
+    if (!this.duration) {
+      return 'No duration found';
+    }
+    return this.duration;
+  }
+
+  /**
+   * @returns {string}
+   */
+  getTitle(): string {
+    if (!this.title) {
+      return 'No title found';
+    }
+    return this.title;
+  }
+
+  /**
+   * @returns {string}
+   */
+  getSize(): string {
+    if (!this.size) {
+      return 'No size found';
+    }
+    return this.size;
   }
 }
