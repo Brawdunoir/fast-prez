@@ -52,6 +52,7 @@ watchEffect(async () => {
 .container {
   display: flex;
   gap: var(--margin-bottom);
+  margin-bottom: var(--margin-bottom);
   width: 100%;
   overflow-y: hidden;
 }

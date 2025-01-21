@@ -6,21 +6,21 @@ const templateLang = 'fr';
 
 <template>
   <p>[center]<span v-if="movie.posterPath">[img]https://image.tmdb.org/t/p/w500{{ movie.posterPath }}[/img]</span></p>
-  <p>[i]« {{ movie.tagline }} »[/i]</p>
+  <p>[i]« {{ movie.getTagline() }} »[/i]</p>
   <br>
   [img]https://i.imgur.com/wSzdZc3.png[/img]
   <br>
-  <p>[b]Titre original :[/b] {{ movie.title }}</p>
+  <p>[b]Titre original :[/b] {{ movie.getTitle() }}</p>
   <p>[b]Acteurs :[/b] {{ movie.getActors() }}</p>
   <p>[b]Réalisateurs :[/b] {{ movie.getDirectors() }} </p>
   <p>[b]Genre(s) :[/b] {{ movie.getGenres() }}</p>
   <p>[b]Nationalité :[/b] {{ movie.getFirstOriginCountry(templateLang) }}</p>
-  <p>[b]Durée :[/b] {{ movie.duration }}</p>
+  <p>[b]Durée :[/b] {{ movie.getDuration() }}</p>
   <p>[b]Date de sortie :[/b] {{ movie.getFormattedReleaseDate(templateLang) }}</p>
   <br>
   [img]https://i.imgur.com/GhShVZp.png[/img]
   <br>
-  <p>[i]{{ movie.overview }}[/i]</p>
+  <p>[i]{{ movie.getOverview() }}[/i]</p>
   <br>
   [img]https://i.imgur.com/nAw0BeT.png[/img]
   <br>
@@ -36,6 +36,6 @@ const templateLang = 'fr';
   <br>
   [img]https://i.imgur.com/VCskFfz.png[/img]
   <br>
-  <p>[b]Taille totale :[/b] {{ movie.size }}</p>
+  <p>[b]Taille totale :[/b] {{ movie.getSize() }}</p>
   <p>[b]Nombre de fichiers :[/b] MANQUANT[/center]</p>
 </template>
