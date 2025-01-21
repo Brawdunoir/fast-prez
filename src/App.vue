@@ -23,20 +23,22 @@ const movie = ref(new Movie())
 
 watch(mediaInfo, async (newMediaInfo) => {
   const parsedMediaInfo = parseMediaInfo(newMediaInfo)
-  if (!parsedMediaInfo.general.complete_name) return
-  const parsedTitle = parse(parsedMediaInfo.general.complete_name)
-  if (!parsedTitle.title) return
   const media = movie.value
-  media.title = parsedTitle.title
+  if (parsedMediaInfo.general.complete_name) {
+    const parsedTitle = parse(parsedMediaInfo.general.complete_name)
+    if (parsedTitle) {
+      media.title = parsedTitle.title
+      media.source = parsedTitle.source
+      media.resolution = parsedTitle.resolution
+      media.videoCodec = parsedTitle.codec
+      media.audioCodec = parsedTitle.codec // Not sure if it's the right one
+    }
+  }
   media.duration = parsedMediaInfo.general.duration
   media.format = parsedMediaInfo.general.format
   media.videoBitrate = parsedMediaInfo.video[0].bit_rate
   media.audioBitrate = parsedMediaInfo.audio[0].bit_rate
   media.size = parsedMediaInfo.general.file_size
-  media.source = parsedTitle.source
-  media.resolution = parsedTitle.resolution
-  media.videoCodec = parsedTitle.codec
-  media.audioCodec = parsedTitle.codec // Not sure if it's the right one
   media.setAudioLanguages(parsedMediaInfo.audio)
   media.setSubtitlesLanguages(parsedMediaInfo.text)
 })
@@ -56,7 +58,11 @@ async function fetchMovieDetails(movieSelected) {
   media.originCountries = movieDetails.origin_country
 
   isMovieSelected.value = true
-  await new Promise(resolve => setTimeout(resolve, 100)) // Give time for DOM update
+  scrollToSection('movie-presentation')
+}
+
+function skipTMDB() {
+  isMovieSelected.value = true
   scrollToSection('movie-presentation')
 }
 </script>
@@ -76,6 +82,8 @@ async function fetchMovieDetails(movieSelected) {
     <div class="no-results" v-if="!movie.title && mediaInfo">
       <p>{{ $t('app.noResults') }}</p>
     </div>
+    <button v-if="mediaInfo && !isMovieSelected" style="width: 100%;" @click="skipTMDB()">{{ $t('app.tmdbSkipButton')
+      }}</button>
 
     <div id="movie-presentation" v-if="isMovieSelected">
       <HeaderWithSubtitle :title="$t('app.presentationTitle')" :subtitle="$t('app.presentationSubtitle')" />
